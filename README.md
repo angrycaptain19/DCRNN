@@ -86,7 +86,7 @@ There is a chance that the training loss will explode, the temporary workaround 
 
 After the model training is complete, the following code can be used to generate the prediction results of the model on the test set.
 
-In particular, if you're not trained, you can still use the following code directly to use the model I've trained.
+In particular, if you haven't trained the model yet, you can still use the following code directly to use the model I've trained.
 
 ```bash
 # Go to the code directory
