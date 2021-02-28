@@ -99,9 +99,12 @@ python run_demo_pytorch.py --config_filename=model/pretrained/METR-LA/config.yam
 python run_demo_pytorch.py --config_filename=model/pretrained/PEMS-BAY/config.yaml --output_filename=dcrnn_prediction_bay.npz
 ```
 
-The generated prediction file of DCRNN is in `output`folder.
+The generated prediction file of DCRNN is in `output` folder.
 
 ## Visualize the prediction results of the model
+
+When the prediction results file from the previous step is generated, you can use the following code to visualize some of the prediction results.
+
 ```bash
 # METR-LA
 python -m scripts.visualize_results --prediction_result_path=output/dcrnn_predictions_la.npz --save=fig/METR-LA
@@ -110,7 +113,7 @@ python -m scripts.visualize_results --prediction_result_path=output/dcrnn_predic
 python -m scripts.visualize_results --prediction_result_path=output/dcrnn_predictions_bay.npz --save=fig/PEMS-BAY
 ```
 
-The generated visualization of the prediction results can be found in the `fig`folder.
+The generated visualization of the prediction results can be found in the `fig`  folder.
 
 ### METR-LA results
 
