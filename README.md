@@ -18,7 +18,6 @@ In particular, this implementation can be trained on Huawei Cloud ModelArts usin
 * pandas>=0.19.2
 * pyyaml
 * statsmodels
-* torch
 * tables
 * future
 * TensorboardX
