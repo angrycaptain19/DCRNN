@@ -94,8 +94,10 @@ def calculate_normalized_laplacian(adj):
     d_inv_sqrt = np.power(d, -0.5).flatten()
     d_inv_sqrt[np.isinf(d_inv_sqrt)] = 0.
     d_mat_inv_sqrt = sp.diags(d_inv_sqrt)
-    normalized_laplacian = sp.eye(adj.shape[0]) - adj.dot(d_mat_inv_sqrt).transpose().dot(d_mat_inv_sqrt).tocoo()
-    return normalized_laplacian
+    return (
+        sp.eye(adj.shape[0])
+        - adj.dot(d_mat_inv_sqrt).transpose().dot(d_mat_inv_sqrt).tocoo()
+    )
 
 
 def calculate_random_walk_matrix(adj_mx):
@@ -104,8 +106,7 @@ def calculate_random_walk_matrix(adj_mx):
     d_inv = np.power(d, -1).flatten()
     d_inv[np.isinf(d_inv)] = 0.
     d_mat_inv = sp.diags(d_inv)
-    random_walk_mx = d_mat_inv.dot(adj_mx).tocoo()
-    return random_walk_mx
+    return d_mat_inv.dot(adj_mx).tocoo()
 
 
 def calculate_reverse_random_walk_matrix(adj_mx):

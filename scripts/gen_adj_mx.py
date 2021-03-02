@@ -20,10 +20,7 @@ def get_adjacency_matrix(distance_df, sensor_ids, normalized_k=0.1):
     dist_mx = np.zeros((num_sensors, num_sensors), dtype=np.float32)
     dist_mx[:] = np.inf
     # Builds sensor id to index map.
-    sensor_id_to_ind = {}
-    for i, sensor_id in enumerate(sensor_ids):
-        sensor_id_to_ind[sensor_id] = i
-
+    sensor_id_to_ind = {sensor_id: i for i, sensor_id in enumerate(sensor_ids)}
     # Fills cells in the matrix with distances.
     for row in distance_df.values:
         if row[0] not in sensor_id_to_ind or row[1] not in sensor_id_to_ind:

@@ -20,7 +20,7 @@ def main(args):
         plt.plot(t,label='truth')
         plt.title('Test sample {}'.format(idx+1))
         plt.legend(loc='lower left')
-        plt.savefig(os.path.join(args.save,'Figure_{}.png'.format(i+1)))
+        plt.savefig(os.path.join(args.save, 'Figure_{}.png'.format(idx + 1)))
         # plt.show()
 
 

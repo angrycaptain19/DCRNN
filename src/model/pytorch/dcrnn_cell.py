@@ -89,10 +89,7 @@ class DCGRUCell(torch.nn.Module):
         - Output: A `2-D` tensor with shape `(B, num_nodes * rnn_units)`.
         """
         output_size = 2 * self._num_units
-        if self._use_gc_for_ru:
-            fn = self._gconv
-        else:
-            fn = self._fc
+        fn = self._gconv if self._use_gc_for_ru else self._fc
         value = torch.sigmoid(fn(inputs, hx, output_size, bias_start=1.0))
         value = torch.reshape(value, (-1, self._num_nodes, output_size))
         r, u = torch.split(tensor=value, split_size_or_sections=self._num_units, dim=-1)
@@ -103,8 +100,7 @@ class DCGRUCell(torch.nn.Module):
         if self._activation is not None:
             c = self._activation(c)
 
-        new_state = u * hx + (1.0 - u) * c
-        return new_state
+        return u * hx + (1.0 - u) * c
 
     @staticmethod
     def _concat(x, x_):
@@ -136,14 +132,12 @@ class DCGRUCell(torch.nn.Module):
         x0 = torch.reshape(x0, shape=[self._num_nodes, input_size * batch_size])
         x = torch.unsqueeze(x0, 0)
 
-        if self._max_diffusion_step == 0:
-            pass
-        else:
+        if self._max_diffusion_step != 0:
             for support in self._supports:
                 x1 = torch.sparse.mm(support, x0)
                 x = self._concat(x, x1)
 
-                for k in range(2, self._max_diffusion_step + 1):
+                for _ in range(2, self._max_diffusion_step + 1):
                     x2 = 2 * torch.sparse.mm(support, x1) - x0
                     x = self._concat(x, x2)
                     x1, x0 = x2, x1
